@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test websocket</title>
+    <script src="/socket.io/socket.io.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,7 +13,7 @@
       rel="stylesheet"
     />
     <!-- <link rel="stylesheet" href="./style/style.css" /> -->
-    <script src="/socket.io/socket.io.js"></script>
+
     <style>
       body {
         margin: 0;
@@ -116,7 +117,7 @@
   </head>
   <body>
     <div class="container">
-      <form id="form" class="form">
+      <form id="form" class="formcontainer">
         <label for="user">User</label>
         <input type="text" name="user" />
         <label for="message">Message</label>
@@ -128,7 +129,6 @@
       </ul>
     </div>
     <script>
-      import { Notify } from "notiflix";
       const ws = io();
 
       // функцыя як реагує на повідомлення
@@ -145,7 +145,10 @@
         const user = e.target.user.value;
         const message = e.target.message.value;
         if (!user) {
-          return Notify.info("Empty string, enter your request");
+          return alert("We need to fill in the User field");
+        }
+        if (!message) {
+          return alert("We need to fill in the Message field");
         }
 
         ws.emit("chatMessage", `${user}: ${message}`);
