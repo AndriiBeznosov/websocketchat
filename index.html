@@ -5,18 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test websocket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style/style.css" />
     <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
-    <form id="form">
-      <label for="user">User</label>
-      <input type="text" name="user" />
-      <label for="message">Message</label>
-      <input type="text" name="message" />
-      <button type="submit">Submit</button>
-    </form>
-    <ul id="messages"></ul>
+    <div class="container">
+      <form id="form" class="form">
+        <label for="user">User</label>
+        <input type="text" name="user" />
+        <label for="message">Message</label>
+        <input type="text" name="message" autofocus />
+        <button type="submit" class="btn">Submit</button>
+      </form>
+      <ul id="messages" class="list">
+        <h2 class="title">Message</h2>
+      </ul>
+    </div>
     <script>
+      import { Notify } from "notiflix";
       const ws = io();
 
       // функцыя як реагує на повідомлення
@@ -32,6 +44,9 @@
         e.preventDefault();
         const user = e.target.user.value;
         const message = e.target.message.value;
+        if (!user) {
+          return Notify.info("Empty string, enter your request");
+        }
 
         ws.emit("chatMessage", `${user}: ${message}`);
         addMessage(`${user}: ${message}`);

@@ -17,10 +17,10 @@ io.on("connection", (ws) => {
   console.log("new client connected");
 
   // відправляе повідомлення новому user
-  ws.emit("chatMessage", "Welcome to chat!");
+  // ws.emit("chatMessage", "Welcome to chat!");
 
   //  відправляе повідомлення всім users о пыдключенні нового user
-  ws.broadcast.emit("chatMessage", "New user connected");
+  // ws.broadcast.emit("chatMessage", "New user connected");
 
   // відправляе message  всім users
   ws.on("chatMessage", (message) => {
