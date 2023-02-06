@@ -144,11 +144,13 @@
       // form
       const form = document.getElementById("form");
       const messages = document.getElementById("messages");
+      const inputUser = document.getElementsByName("user");
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         const user = e.target.user.value;
         const message = e.target.message.value;
+
         if (!user) {
           return alert("We need to fill in the User field");
         }
@@ -159,6 +161,10 @@
         ws.emit("chatMessage", `${user}: ${message}`);
         addMessage(`${user}: ${message}`);
         e.target.message.value = "";
+
+        if (user) {
+          inputUser[0].setAttribute("disabled", true);
+        }
       });
       const addMessage = (message) => {
         const li = document.createElement("li");
